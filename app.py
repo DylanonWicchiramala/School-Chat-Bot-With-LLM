@@ -7,10 +7,13 @@ def chat(message:str, history):
 
 
 def slow_echo_chat(message, history):
-    for i in range(len(submitUserMessage(message))):
-        time.sleep(0.2)
-        yield message[: i+1]
+    answer = submitUserMessage(message)
+    for i in range(len(answer)):
+        time.sleep(0.01)
+        yield answer[: i+1]
         
         
 # gr.ChatInterface(chat).launch()
-gr.ChatInterface(slow_echo_chat).launch()
+interface = gr.ChatInterface(slow_echo_chat)
+
+interface.launch()

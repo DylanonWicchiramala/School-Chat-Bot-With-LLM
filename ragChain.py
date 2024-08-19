@@ -1,13 +1,13 @@
 from dotenv import load_dotenv
 import os
 from langchain_community.document_loaders import TextLoader, WebBaseLoader
-from langchain_openai import ChatOpenAI
-from langchain_chroma import Chroma
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
-from langchain_openai import OpenAIEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_chroma import Chroma
+from langchain_openai import OpenAIEmbeddings
+from langchain_openai import ChatOpenAI
 
 
             
@@ -48,7 +48,7 @@ prompt = ChatPromptTemplate.from_messages(
         [
             (
                 "assistant",
-                """You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Use three sentences maximum and keep the answer concise. Answer in the language that users use. Your are a male.
+                """You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Use three sentences maximum and keep the answer concise. Answer in the same language as question section. Your are a male.
                 Question: {question} 
                 Context: {context} 
                 Answer:"""
