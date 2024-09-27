@@ -73,4 +73,8 @@ def submitUserMessage(message:str, user_id:str="test", keep_chat_history:bool=Tr
     message_with_histroy = message + "\nChat History: \n"  + "\n".join(chat_history)
     
     ans = rag_chain.invoke(message_with_histroy)
+    
+    if keep_chat_history:
+        chat_history = database.chat_history.insert(bot_message=ans, human_message=message, user_id=user_id)
+    
     return ans
