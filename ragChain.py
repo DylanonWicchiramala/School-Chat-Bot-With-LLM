@@ -67,7 +67,7 @@ rag_chain = (
 
 
 def submitUserMessage(message:str, user_id:str="test", keep_chat_history:bool=True):
-    chat_history = database.chat_history.get(user_id=user_id) if keep_chat_history else []
+    chat_history = database.chat_history.get_str(user_id=user_id) if keep_chat_history else []
     chat_history = chat_history[-8:]
     
     message_with_histroy = message + "\nChat History: \n"  + "\n".join(chat_history)
