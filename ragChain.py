@@ -8,13 +8,14 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
-
+import database.chat_history
+import utils
 
             
 # Load environment variables from the .env file
-load_dotenv("./.env")
-os.getenv('OPENAI_API_KEY')
+utils.load_env()
 
+os.getenv('OPENAI_API_KEY')
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
 # os.environ["LANGCHAIN_PROJECT"] = "Multi-agent Collaboration"
 
@@ -65,6 +66,11 @@ rag_chain = (
 )
 
 
-def submitUserMessage(message:str):
-    ans = rag_chain.invoke(message)
+def submitUserMessage(message:str, user_id:str="test", keep_chat_history:bool=True):
+    chat_history = database.chat_history.get(user_id=user_id) if keep_chat_history else []
+    chat_history = chat_history[-8:]
+    
+    message_with_histroy = message + "\nChat History: \n"  + "\n".join(chat_history)
+    
+    ans = rag_chain.invoke(message_with_histroy)
     return ans
