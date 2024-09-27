@@ -12,7 +12,7 @@ from langchain_openai import ChatOpenAI
 
             
 # Load environment variables from the .env file
-load_dotenv("./API_keys.env")
+load_dotenv("./.env")
 os.getenv('OPENAI_API_KEY')
 
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
